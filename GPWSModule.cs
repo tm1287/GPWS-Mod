@@ -16,19 +16,26 @@ namespace GPWS
 
         public void Update() {
             activeVessel = FlightGlobals.ActiveVessel;
-            
-            if (activeVessel.radarAltitude >= 150 && activeVessel.verticalSpeed < -40) {
-                mode = GPWSMode.RapidSink;
-            } else if (activeVessel.radarAltitude < 150 && activeVessel.verticalSpeed < -10) {
-                mode = GPWSMode.TerrainPullUp;
-            } 
-            else {
+            if (activeVessel.speed > 5 || activeVessel.radarAltitude > activeVessel.terrainAltitude) {
+                if (VesselAttributes.AoA(activeVessel) > 25) {
+                    mode = GPWSMode.Stall;
+                } else if (VesselAttributes.RadarAltitude(activeVessel) >= 150 && VesselAttributes.VerticalSpeed(activeVessel) < -40) {
+                    mode = GPWSMode.RapidSink;
+                } else if (VesselAttributes.RadarAltitude(activeVessel) < 150 && activeVessel.verticalSpeed < -10) {
+                    mode = GPWSMode.TerrainPullUp;
+                } else if (VesselAttributes.BankAngle(activeVessel) > 35) {
+                    mode = GPWSMode.BankAngle;
+                } else {
+                    mode = GPWSMode.Nominal;
+                }
+            } else {
                 mode = GPWSMode.Nominal;
             }
 
             switch (mode) {
                 case GPWSMode.Nominal:
                     //TODO: Implement some kind of prediction system during nominal operation.
+                    sm.StopSound();
                     break;
                 case GPWSMode.BankAngle:
                     sm.PlaySound(sm.bankAngleWarning, 1.0f);
@@ -44,7 +51,6 @@ namespace GPWS
                     break;
             }
 
-            //Debug.Log(Vector3d.Angle(activeVessel.srf_vel_direction, (Vector3d) activeVessel.terrainNormal));
         }
     }
 }

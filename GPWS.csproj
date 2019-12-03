@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VesselAttributes.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="GPWSModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
