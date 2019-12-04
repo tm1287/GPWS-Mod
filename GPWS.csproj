@@ -59,10 +59,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GPWSModule.cs" />
+    <Compile Include="Modules\GPWSModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoundManager.cs" />
-    <Compile Include="VesselAttributes.cs" />
+    <Compile Include="Modules\SoundManager.cs" />
+    <Compile Include="Modules\VesselAttributes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /y "$(TargetPath)" "C:\KSP\KSP_1.8.1_ModVersion\GameData\GPWS"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

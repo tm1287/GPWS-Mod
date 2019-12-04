@@ -54,4 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /y "$(TargetPath)" "C:\Users\Tejas\UnityProjects\GPWS\Assets\Plugins"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
